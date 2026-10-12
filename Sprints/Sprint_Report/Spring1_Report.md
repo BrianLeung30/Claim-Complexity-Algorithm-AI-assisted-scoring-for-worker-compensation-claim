@@ -35,21 +35,15 @@ The following activities were completed during Sprint 1:
 - Completing initial project planning and beginning to outline user stories.
 - Beginning to develop the skills and knowledge needed for future implementation.
 
-**GitHub issue links:** Add the URLs of the corresponding completed issues below when available.
-
-- [Completed issue 1 URL]
-- [Completed issue 2 URL]
-- [Completed issue 3 URL]
-
 ## Incomplete Issues/User Stories
 
 The following issues remain unresolved and should be tracked in Sprint 2. Add the corresponding GitHub issue URLs once the issues have been created or identified.
 
-- [Client data issue URL] — The required data was delayed by infrastructure issues on the client's side and was expected on October 12. The team will obtain and inspect the data once it becomes available.
-- [Expert claims handler meeting issue URL] — The meeting has not yet taken place. The team will schedule it to clarify domain-specific requirements and validate assumptions.
-- [GitHub organization access issue URL] — Access to the Kanban board, issues, tickets, and relevant repositories has not yet been granted. The team will follow up with the client or project administrator.
-- [AWS IAM access issue URL] — The required cloud infrastructure permissions remain pending. The team will contact the appropriate administrator to obtain access.
-- [Claude account access issue URL] — Access to the account required for the planned workflow remains pending. The team will follow up with the appropriate administrator.
+- The required data was delayed by infrastructure issues on the client's side and was expected on October 12. The team will obtain and inspect the data once it becomes available.
+- The meeting has not yet taken place. The team will schedule it to clarify domain-specific requirements and validate assumptions.
+- Access to the Kanban board, issues, tickets, and relevant repositories has not yet been granted. The team will follow up with the client or project administrator.
+- The required cloud infrastructure permissions remain pending. The team will contact the appropriate administrator to obtain access.
+- Access to the account required for the planned workflow remains pending. The team will follow up with the appropriate administrator.
 
 **Reason for delays:** The primary blocker was the client's infrastructure issues, which affected the delivery of the required data. In addition, access to essential development tools and project management resources had not been granted by the end of the sprint.
 
