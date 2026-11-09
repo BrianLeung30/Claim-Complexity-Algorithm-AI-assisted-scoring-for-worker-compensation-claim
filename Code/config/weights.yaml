@@ -1,0 +1,74 @@
+# Baseline weights and parameters. Every entry has value, source and approved_by.
+# All values are placeholders until Penser reviews them. This file is rewritten by
+# PUT /weights; explanations live in `note` fields so they survive rewrites.
+version: 1
+updated_at: null
+complexity_weights:
+  duration:
+    value: 0.25
+    source: baseline placeholder
+    approved_by: pending Penser
+    note: median days to close in the claim's intake group
+  medical_intensity:
+    value: 0.25
+    source: baseline placeholder
+    approved_by: pending Penser
+    note: median Medical Paid in the group
+  time_loss:
+    value: 0.25
+    source: baseline placeholder
+    approved_by: pending Penser
+    note: share of group claims with Indemnity Paid > 0
+  legal:
+    value: 0.25
+    source: baseline placeholder
+    approved_by: pending Penser
+    note: share of group claims with a legal / BIIA / attorney diary task
+cost:
+  annual_inflation_rate:
+    value: 0.0
+    source: baseline placeholder
+    approved_by: pending Penser
+    note: PLACEHOLDER until Penser sets a rate. Historical Total Incurred is compounded
+      from injury year to as_of_year. Allowed range 0 to 0.25.
+  as_of_year:
+    value: null
+    source: baseline placeholder
+    approved_by: pending Penser
+    note: Year to express costs in. null means the current calendar year.
+  range_percentile_low:
+    value: 10
+    source: baseline placeholder
+    approved_by: pending Penser
+  range_percentile_high:
+    value: 90
+    source: baseline placeholder
+    approved_by: pending Penser
+baseline:
+  min_group_closed_claims:
+    value: 30
+    source: baseline placeholder
+    approved_by: pending Penser
+    note: Groups with fewer closed claims fall back to a coarser group.
+  holdout_injury_year:
+    value: 2025
+    source: baseline placeholder
+    approved_by: pending Penser
+    note: Holdout tables use claims injured before this year; tested on closed claims
+      injured in or after it.
+confidence:
+  size_weight:
+    value: 0.5
+    source: baseline placeholder
+    approved_by: pending Penser
+    note: confidence = 100 * (size_weight * size_score + spread_weight * spread_score)
+  spread_weight:
+    value: 0.5
+    source: baseline placeholder
+    approved_by: pending Penser
+    note: spread_score = 1 - (high - low) / (high + low)
+  full_confidence_n:
+    value: 500
+    source: baseline placeholder
+    approved_by: pending Penser
+    note: size_score = min(1, log(n) / log(full_confidence_n))

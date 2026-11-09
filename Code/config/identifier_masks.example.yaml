@@ -1,0 +1,25 @@
+# Identifier masks: EXAMPLE ONLY. This file is tracked in git, so it must never contain real
+# entries. The real list is claim-specific and stays local in data/identifier_masks.yaml
+# (gitignored, like the extract). See README, "Identifier masks", for how to set it up.
+#
+# There is no blanket digit masking: long numeric codes are kept exactly as provided.
+# Only the sequences listed in the local file are replaced with "xxxx". Each entry names the
+# claim, the cleaned column, which run of 6+ digits in that cell it is (occurrence, 1-based),
+# and its length, so the original value never has to be written down. If a listed sequence is
+# not found with the stated length, cleaning stops so a person can review it.
+#
+# status values:
+#   confirmed_identifying   - reviewed, identifies a person, always masked
+#   unresolved              - could identify a person and could not be classified; masked
+#                             pending review by Penser
+# To release a sequence after review, remove its entry from the local file.
+#
+# Entry format, with placeholder values (keep entries in the local file only):
+#   - claim: ClaimNum 00000          # ClaimNum exactly as in the extract
+#     column: Accident Description   # cleaned column name
+#     occurrence: 1                  # which run of 6+ digits in that cell, counting from 1
+#     length: 9                      # how many digits the run has; never the digits themselves
+#     status: unresolved             # confirmed_identifying or unresolved
+#     note: short reason             # optional; never include the digits
+
+masks: []

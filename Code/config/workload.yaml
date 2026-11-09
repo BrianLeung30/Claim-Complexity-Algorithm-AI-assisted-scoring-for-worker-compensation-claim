@@ -1,0 +1,18 @@
+# Workload Board thresholds. TEMPORARY baseline placeholders, pending Penser approval.
+# Used only by GET /workload; they never change claim assignments or estimates.
+high_complexity_threshold:
+  value: 75
+  source: baseline placeholder
+  approved_by: pending Penser
+  note: A claim counts as high complexity when its latest complexity score is at or above this.
+warning_load_ratio:
+  value: 1.25
+  source: baseline placeholder
+  approved_by: pending Penser
+  note: Warn when an adjuster's total complexity exceeds this multiple of the median
+    total across assigned adjusters.
+warning_high_claims:
+  value: 15
+  source: baseline placeholder
+  approved_by: pending Penser
+  note: Warn when an adjuster has at least this many high-complexity open claims.

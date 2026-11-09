@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-font-smoothing: antialiased; }
+  body { @apply bg-canvas text-charcoal font-sans; }
+  :focus-visible { @apply outline-none ring-2 ring-navy-400 ring-offset-1; }
+}
+
+@layer components {
+  .field-label { @apply block text-xs font-medium text-slate-600 mb-1; }
+  .field-input {
+    @apply block w-full rounded border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-charcoal
+      placeholder:text-slate-400 focus:border-navy-500 focus:ring-1 focus:ring-navy-500;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center rounded px-3 py-1.5 text-sm font-medium
+      disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary { @apply btn bg-navy-700 text-white hover:bg-navy-800; }
+  .btn-secondary { @apply btn border border-slate-300 bg-white text-charcoal hover:bg-slate-50; }
+}

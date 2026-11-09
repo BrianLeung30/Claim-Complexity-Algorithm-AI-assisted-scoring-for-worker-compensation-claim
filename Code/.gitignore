@@ -1,0 +1,20 @@
+data/
+*.csv
+.env
+
+# Identifier masks are claim-specific. The real list is data/identifier_masks.yaml (ignored via
+# data/ above). This guards the old location; config/identifier_masks.example.yaml stays tracked.
+config/identifier_masks.yaml
+
+# Local data artifacts and environment
+*.parquet
+*.db
+.venv/
+__pycache__/
+.pytest_cache/
+
+# Frontend
+node_modules/
+web/dist/
+.env.local
+.env.*.local
