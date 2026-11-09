@@ -2,8 +2,6 @@
 
 ## YouTube Link of Sprint 2 Video
 
-**[MISSING: insert unlisted YouTube link to the Sprint 2 demo video. The demo has not happened yet, so the video has not been recorded.]**
-
 ## What's New (User Facing)
 
 - **Claim Scorer dashboard (demo):** Examiners can search, filter, sort and page through claims, and open a claim to see its complexity score (0–100) and its cost estimate (low / median / high with a 0–100 confidence). The two estimates are always shown separately and never merged. Each score comes with the top three reason codes (for example, "Strain: long time to close") and the claim's earlier estimates.
@@ -16,7 +14,7 @@
 
 ## Work Summary (Developer Facing)
 
-This sprint had two parts: turning the Sprint 1 research into architecture design decisions, and building a working demo that follows those decisions as closely as possible with only partial data. On the design side, the team chose a four-layer architecture (presentation, application, analysis, data) because it keeps the ML models separate from the web interface and API, lets a retrained model be swapped in without changing the interface, and supports the planned move from local development to AWS. We decomposed the system into six subsystems (data ingestion and preprocessing, complexity label generation, model training and benchmarking, inference and scoring, backend API and authentication, and web dashboard) that communicate only through a small set of interfaces. We also made the main technology choices: Claude-generated complexity labels with a fixed rubric (because Penser data has no human-assigned complexity scores), Industry-BERT-Insurance as the leading candidate model (small enough to retrain within the $300–$500 budget), quantile regression for the cost range, a PostgreSQL data layer, AWS Cognito for authentication, and a React dashboard. On the implementation side, we built a local demo of the pipeline from raw data through to the dashboard. Because we have received only about half of the data columns, and the other half (the more important half) has never been seen, and we have no sanitized diary notes, the ML parts of the design (Claude labeling, BERT fine-tuning, quantile regression) could not be built or benchmarked. Instead the demo uses lookup-table baselines grouped by intake fields (Loss Type, Loss Cause, Loss Nature), which gives the same outputs (separate complexity score with sub-scores, cost range, confidence, reason codes) so the backend and dashboard could be built and tested now and the model swapped in later. The main barrier was data access. Penser's new claims system launched late, which delayed the data extract, and then our mentor Keno, who works directly with us on the data, was in a car accident. Penser has sent about half of the data columns so far, and the more important half has still not arrived; we expect to receive it soon. Without it we are stuck on data inspection, label generation, model training and benchmarking, and there is little more we can do on those until it arrives. Claude access has been granted this sprint, so label generation can start once the data and Penser's approval to send it to the API are in place. AWS access has not been granted yet. We used the time to build the parts that do not depend on real data and to test them with synthetic fixtures generated inside the tests. Key learnings: designing the system so the model sits behind a stable interface let us make real progress on the backend and dashboard without data, and keeping the complexity score and cost estimate strictly separate (and excluding examiner touch points from complexity) needs to be enforced in code, not just in the documents.
+This sprint had two parts: turning the Sprint 1 research into architecture design decisions, and building a working demo that follows those decisions as closely as possible with only partial data. On the design side, the team chose a four-layer architecture (presentation, application, analysis, data) because it keeps the ML models separate from the web interface and API, lets a retrained model be swapped in without changing the interface, and supports the planned move from local development to AWS. We decomposed the system into six subsystems (data ingestion and preprocessing, complexity label generation, model training and benchmarking, inference and scoring, backend API and authentication, and web dashboard) that communicate only through a small set of interfaces. We also made the main technology choices: Claude-generated complexity labels with a fixed rubric (because Penser data has no human-assigned complexity scores), Industry-BERT-Insurance as the leading candidate model (small enough to retrain within the $300–$500 budget), quantile regression for the cost range, a PostgreSQL data layer, AWS Cognito for authentication, and a React dashboard. The team selected the model architecture together. On the implementation side, Kevin built a local demo of the pipeline from raw data through to the dashboard, which we will present to Penser for feedback. Because we have received only about half of the data columns, and the other half (the more important half) has never been seen, and we have no sanitized diary notes, the ML parts of the design (Claude labeling, BERT fine-tuning, quantile regression) could not be built or benchmarked. Instead the demo uses lookup-table baselines grouped by intake fields (Loss Type, Loss Cause, Loss Nature), which gives the same outputs (separate complexity score with sub-scores, cost range, confidence, reason codes) so the backend and dashboard could be built and tested now and the model swapped in later. The main barrier was data access. Penser's new claims system launched late, which delayed the data extract, and then our mentor Keno, who works directly with us on the data, was in a car accident. Penser has sent about half of the data columns so far, and the more important half has still not arrived; we expect to receive it soon. Without it we are stuck on data inspection, label generation, model training and benchmarking, and there is little more we can do on those until it arrives. Claude access has been granted this sprint, so label generation can start once the data and Penser's approval to send it to the API are in place. AWS access has not been granted yet. We used the time to build the parts that do not depend on real data and to test them with synthetic fixtures generated inside the tests: 83 automated test cases in total (33 for the Claim Scorer, weights and backend API, 12 for the Workload Board, 14 for Cost & Risk Insights and 24 for the data pipeline). Key learnings: designing the system so the model sits behind a stable interface let us make real progress on the backend and dashboard without data, and keeping the complexity score and cost estimate strictly separate (and excluding examiner touch points from complexity) needs to be enforced in code, not just in the documents.
 
 ## Unfinished Work
 
@@ -34,52 +32,47 @@ Most unfinished work is blocked by the missing data, not by lack of effort or ti
 
 ## Completed Issues/User Stories
 
-Here are links to the issues that we completed in this sprint:
+Here are links to the issues that we completed in this sprint (the "Done" column of the [Kanban board](https://github.com/users/BrianLeung30/projects/2)):
 
-On GitHub, **no issue was closed this sprint**, and no issue has a milestone or an assignee. The demo was merged in pull request [#96 "Claims dashboard demo"](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/pull/96) (merged Nov 3, 2026, 88 files), which has no linked issues and no reviews. The issues below were partly implemented by that PR as a baseline with placeholder logic. They are listed here because the work exists, but they should not be counted as closed until reviewed and checked against real data.
+- [#1 Set up KanBan Board](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/issues/1) (assigned to Brian Leung)
+- [#3 Set up Claude Team Account](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/issues/3): Claude access has been granted
+- [#4 Sign NDAs](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/issues/4)
+- [#5 Research ML approaches](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/issues/5)
 
-Base URL for issues: `https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/<number>`
+In review (work done, awaiting team review):
 
-- [#3 [2.6] Data cleaning and preprocessing pipeline](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/3): cleaning is built; no real-data run or train/validation split yet
-- [#6 [3.2] Define complexity sub-scores](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/6) and [#8 [3.4] Complexity score scale](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/8): four placeholder sub-scores on a 0–100 scale
-- [#9 [3.5] Touch-point safeguard](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/9): no feature counts diary tasks or examiner activity
-- [#13 [3.9] System architecture/design doc](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/13): written in Solution Approach, section V
-- [#19 [4.1] Feature engineering for structured fields](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/19)
-- [#22 [4.4] Weighted-average complexity score](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/22) and [#23 [4.5] Configurable weights](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/23)
-- [#24 [5.1] Cost estimation using closed claims](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/24): lookup-table baseline, not a trained model
-- [#15 [7.1] Database schema](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/15) and [#16 [7.2] Local database](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/16): SQLite, not PostgreSQL
-- [#17 [7.4] API endpoints](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/17), [#26 [7.3] Inference endpoint](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/26)
-- Also started, and moved from `sprint-3` to `sprint-2` on Nov 7: [#30 [5.3] Inflation](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/30), [#31 [5.4]](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/31), [#33 [5.7]](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/33), [#34–#37 [6.1–6.4] confidence and reasons](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/34), [#41 [7.6]](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/41), [#49 [8.4]](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/49), [#52 [8.7]](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/52), [#53 [8.8]](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/53)
-
-Closed earlier: [#91 [1.1] Set up Kanban board and sprint structure](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/91) (closed Oct 24, 2026).
+- [#6 Select Model Architecture](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/issues/6): decisions are written up in the Solution Approach, section V (four-layer architecture, six subsystems, Claude-generated labels, Industry-BERT-Insurance as top candidate)
+- [#7 Create Demo UI](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/issues/7): the baseline demo (Claim Scorer, Workload Board, Cost & Risk Insights, adjustable weights, local backend API and data pipeline). Per the sprint slides, Kevin created it. The code is in the `Code/` folder of the team repository.
 
 ## Incomplete Issues/User Stories
 
 Here are links to issues we worked on but did not complete in this sprint:
 
-- [#85 [2.1] Column headers](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/85), [#86 [2.3] Dataset and sanitized notes](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/86), [#90 [2.2] Column review](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/90): only about half of the data columns have been delivered, and the important half has not (Penser's new system launched late, and our mentor Keno was then in a car accident).
-- [#1 [2.4]](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/1), [#2 [2.5]](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/2), [#4 [2.7]](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/4), [#5 [2.8]](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/5): sanitization check, exploratory analysis, closed-claim anchors and note mapping all need the dataset.
-- [#20 [4.2] Diary-note features](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/20), [#21 [4.3] Train sub-score models](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/21), [#25 [5.2] Cost characteristics](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/25): blocked on the data and sanitized notes.
-- [#83 [1.3] Confirm Claude access](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/83): Claude access has been granted, so the work is done and the issue can be closed.
-- [#27 [7.8] AWS Cognito authentication](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/27): deferred because AWS access has not been granted yet.
-- [#14 [3.10] Propose findings and model approach to Penser](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/14): the demo to Penser has not happened yet.
-- [#97 [4.8] Complexity label generation with Claude API](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/issues/97): created Nov 7, 2026; Claude access is now granted; still blocked on the missing columns, sanitized notes and Penser approval to send data to the API.
+- [#8 Receive Dataset](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/issues/8) (In progress): only about half of the data columns have been delivered, and the important half has not (Penser's new system launched late, and our mentor Keno was then in a car accident).
+- [#2 Set up AWS account](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/issues/2) (Ready): AWS access has not been granted yet. Cognito authentication, PostgreSQL and cloud hosting are deferred until it is.
+- [#9 Clean Data](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/issues/9) (Backlog): a cleaning pipeline exists in the demo, but it has not been run on the real data.
+- [#10 Exploratory Data Analysis](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/issues/10) (Backlog): needs the full dataset.
+- [#13 Feature Engineering](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/issues/13) (Backlog): structured-field features exist in the demo; diary-note features need the sanitized notes.
+- [#12 Generate Training Labels](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/issues/12) (Backlog): Claude access is now granted; still blocked on the missing columns, sanitized notes and Penser's approval to send data to the API.
+- [#11 Train Baseline Model](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/issues/11) (Backlog): the demo uses a lookup-table baseline, not a trained model; training needs the data and labels.
+
+Not on the board yet: the demo to Penser (not held yet) and the meeting with an expert claims handler.
 
 ## Code Files for Review
 
 Please review the following code files, which were actively developed during this sprint, for quality:
 
-Links point to the `main` branch of `penserna.ghe.com/Penser-Capstone/Claim-Complexity`, where the demo was merged in PR #96.
+Links point to the `main` branch of the team repository.
 
-- [pipeline/clean.py](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/blob/main/pipeline/clean.py)
-- [pipeline/features.py](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/blob/main/pipeline/features.py)
-- [models/baseline.py](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/blob/main/models/baseline.py)
-- [backend/api.py](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/blob/main/backend/api.py)
-- [backend/service.py](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/blob/main/backend/service.py)
-- [backend/db.py](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/blob/main/backend/db.py)
-- [web/src/services/api.ts](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/blob/main/web/src/services/api.ts)
-- [web/src/pages/WorkloadPage.tsx](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/blob/main/web/src/pages/WorkloadPage.tsx)
-- [config/weights.yaml](https://penserna.ghe.com/Penser-Capstone/Claim-Complexity/blob/main/config/weights.yaml)
+- [Code/pipeline/clean.py](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/blob/main/Code/pipeline/clean.py)
+- [Code/pipeline/features.py](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/blob/main/Code/pipeline/features.py)
+- [Code/models/baseline.py](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/blob/main/Code/models/baseline.py)
+- [Code/backend/api.py](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/blob/main/Code/backend/api.py)
+- [Code/backend/service.py](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/blob/main/Code/backend/service.py)
+- [Code/backend/db.py](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/blob/main/Code/backend/db.py)
+- [Code/web/src/services/api.ts](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/blob/main/Code/web/src/services/api.ts)
+- [Code/web/src/pages/WorkloadPage.tsx](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/blob/main/Code/web/src/pages/WorkloadPage.tsx)
+- [Code/config/weights.yaml](https://github.com/BrianLeung30/Claim-Complexity-Algorithm-AI-assisted-scoring-for-worker-compensation-claim/blob/main/Code/config/weights.yaml)
 
 ## Retrospective Summary
 
@@ -88,6 +81,7 @@ Here's what went well:
 - **Design decisions were made and documented:** The layered architecture, six-subsystem decomposition, interfaces, data design and UI design are all documented, each with the alternatives we considered and why we chose what we did.
 - **Progress without data:** By putting the estimator behind a stable interface, we built and tested the full path from cleaning to dashboard using synthetic test data, so only the model needs to change when data arrives.
 - **Project rules enforced in code:** Complexity and cost stay separate, touch-point counts are excluded from complexity, estimates are append-only, and weight sliders only preview until a confirmed save.
+- **Testing:** 83 automated test cases on synthetic data cover the scorer, workload board, insights and data pipeline.
 - **Data confidentiality:** Everything stays local, tests use synthetic fixtures only, and the identifier-mask list is kept out of version control.
 - **Easy to extend:** Weights, the inflation rate and thresholds are configurable and take effect in seconds with no retraining, and the diary-note features can be added through a registered feature group without touching cleaning or scoring.
 
@@ -95,7 +89,7 @@ Here's what we'd like to improve:
 
 - **Data dependency risk:** Two sprints have been affected by data delays, and we have only half of the columns. We need a fallback plan, such as agreed sample values for the missing columns, so we are less exposed to a single delivery.
 - **Escalation:** We should have escalated the data delay to Penser's other contacts sooner, instead of waiting for a single mentor.
-- **Issue tracking:** Issues, milestones, pull requests, story points and before/after videos need to be kept up to date as work happens.
+- **Issue tracking:** The Kanban board has 13 issues; only one has an assignee, none has a milestone or story points, and the demo code is not linked to any issue. These need to be kept up to date as work happens, and the board needs more issues so each task and each member's contribution is visible.
 - **Gap between design and demo:** The demo uses a lookup-table baseline, SQLite and no authentication, while the design uses BERT, PostgreSQL and Cognito. We need to be clear about this in reports and demos so the demo is not mistaken for the final system.
 - **Approvals:** Many parameters are still placeholders and need Penser's sign-off.
 
@@ -110,4 +104,4 @@ Here are changes we plan to implement in the next sprint:
 - Request AWS access.
 - Meet with the expert claims handler and ask Penser to approve the weights, thresholds and complexity bands.
 - Move toward the designed stack as access allows: PostgreSQL, AWS Cognito, a model registry and asynchronous request handling.
-- Update the GitHub issues, milestones and story points, and record the Sprint 3 demo video.
+- Add issues for the remaining tasks (including the demo to Penser and the claims handler meeting), assign members, milestones and story points, and record the Sprint 3 demo video.
