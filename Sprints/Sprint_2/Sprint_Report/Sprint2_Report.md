@@ -1,6 +1,6 @@
 # Sprint 2 Report (October 12 – November 8)
 
-## YouTube Link of Sprint 2 Video
+## YouTube Link of Sprint 2 Video: https://youtu.be/tuG2QdYFncg
 
 ## What's New (User Facing)
 
