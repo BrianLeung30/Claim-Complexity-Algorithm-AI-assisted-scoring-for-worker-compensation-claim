@@ -1,8 +1,7 @@
 # Sprint 2 Report (October 12 – November 8)
 
 ## YouTube Link of Sprint 2 Video
-
-**[MISSING: insert unlisted YouTube link to the Sprint 2 demo video. The demo has not happened yet, so the video has not been recorded.]**
+https://youtu.be/tuG2QdYFncg
 
 ## What's New (User Facing)
 
